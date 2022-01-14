@@ -12,7 +12,9 @@ const OpenRoutes = () => {
                 <Route path='/register' element={<Register />} />
                 <Route path='/forgot-password' element={<ForgotPassword />} />
                 <Route path='/' element={<Navigate replace to='/login' />} />
-                <Route path='*' element={<NoMatch />} />
+                <Route path='*' element={<Navigate replace to='/login' />} />
+
+                {/* <Route path='*' element={<NoMatch />} /> */}
             </Route>
         </Routes>
     )

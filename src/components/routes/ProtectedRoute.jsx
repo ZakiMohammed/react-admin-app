@@ -1,3 +1,4 @@
+import { useContext } from 'react'
 import { Routes, Route, Outlet, Navigate } from 'react-router-dom'
 import Dashboard from '../../pages/Dashboard'
 import Profile from '../../pages/Profile'
@@ -6,8 +7,12 @@ import UserPage from '../../pages/users/UserPage'
 import NoMatchInner from '../../pages/NoMatchInner'
 import Header from '../Header'
 import Footer from '../Footer'
+import AuthContext from '../../context/auth/AuthContext'
 
 const ProtectedRoute = () => {
+
+    const { user } = useContext(AuthContext)
+
     return (
         <>
             <Header />
@@ -17,8 +22,16 @@ const ProtectedRoute = () => {
                     <Route path='/' element={<Outlet />}>
                         <Route path='/' element={<Dashboard />} />
                         <Route path='/profile' element={<Profile />} />
-                        <Route path='/users' element={<UserListPage />} />
-                        <Route path='/users/:id' element={<UserPage />} />
+
+                        {/* authorized routes based on role */}
+                        {
+                            user && user.role === 'admin' && (
+                                <>
+                                    <Route path='/users' element={<UserListPage />} />
+                                    <Route path='/users/:id' element={<UserPage />} />
+                                </>
+                            )
+                        }
 
                         {/* force redirect */}
                         <Route path='/dashboard' element={<Navigate replace to='/' />} />

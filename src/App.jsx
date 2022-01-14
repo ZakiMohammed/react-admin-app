@@ -1,12 +1,12 @@
-import { BrowserRouter as Router } from 'react-router-dom'
 import Shell from './components/Shell'
+import { AuthProvider } from './context/auth/AuthContext'
 
 const App = () => {
 	return (
 		<>
-			<Router>
+			<AuthProvider>
 				<Shell />
-			</Router>
+			</AuthProvider>
 		</>
 	)
 }

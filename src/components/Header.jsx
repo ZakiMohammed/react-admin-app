@@ -1,8 +1,10 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
+import AuthContext from '../context/auth/AuthContext'
 
 const Header = () => {
 
+    const { user } = useContext(AuthContext)
     const [isActive, setIsActive] = useState(false)
 
     return (
@@ -12,18 +14,20 @@ const Header = () => {
                     <b>Admin App</b>
                 </Link>
 
-                <a role="button" className={'navbar-burger burger ' + (isActive ? 'is-active': '')} aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" onClick={() => setIsActive(!isActive)}>
+                <button className={'navbar-burger burger ' + (isActive ? 'is-active': '')} aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" onClick={() => setIsActive(!isActive)}>
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
-                </a>
+                </button>
             </div>
 
             <div id="navbarBasicExample" className={'navbar-menu ' + (isActive ? 'is-active': '')}>
                 <div className="navbar-start">
                     <Link className="navbar-item" to={'/'}>Dashboard</Link>
                     <Link className="navbar-item" to={'/profile'}>Profile</Link>
-                    <Link className="navbar-item" to={'/users'}>Users</Link>
+                    {
+                        user && user.role === 'admin' && <Link className="navbar-item" to={'/users'}>Users</Link>
+                    }
                 </div>
             </div>
         </nav>
