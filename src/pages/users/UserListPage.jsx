@@ -31,7 +31,7 @@ const Users = () => {
             getUsers()
         }
 
-    }, [])
+    }, [users, setUsers])
 
     return (
         <div className='box'>

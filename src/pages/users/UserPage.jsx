@@ -5,6 +5,7 @@ import userService from '../../services/user-service'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { solid } from '@fortawesome/fontawesome-svg-core/import.macro'
 import Spinner from '../../components/spinners/Spinner'
+import User from '../../components/User'
 
 const UserPage = () => {
 
@@ -33,20 +34,23 @@ const UserPage = () => {
         if (!users) {
             getUser()
         } else {
-            const found = users.find(i => i.id === params.id)
-            if (found) {
-                setUser(found)
-            } else {
-                getUser()
-            }
+            const found = users.find(i => i.id === +params.id)
+            found ? setUser(found) : getUser()
         }
 
-    }, [])
+    }, [users, params.id])
 
     return (
-        <div>
-            User Page
-        </div>
+        <>
+            {
+                loading ? <Spinner /> : (
+                    user && <User user={user} />
+                )
+            }
+            <NavLink to={'/users'} className='button is-light'>
+                <FontAwesomeIcon icon={solid('arrow-left')} className='has-text-grey' />
+            </NavLink>
+        </>
     )
 }
 

@@ -7,9 +7,12 @@ const getTitle = (pathname) => {
             return 'Profile'
         case '/users':
             return 'User List'
-        case '/users/':
-            return 'User Details'
         default:
+
+            if (pathname.includes('/users/')) {
+                return 'User Details'
+            }
+
             return ''
     }
 }

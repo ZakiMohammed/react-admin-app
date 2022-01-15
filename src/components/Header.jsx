@@ -28,6 +28,9 @@ const Header = () => {
 
             <div id="navbarBasicExample" className={'navbar-menu ' + (isActive ? 'is-active' : '')}>
                 <div className="navbar-end">
+                    <div className='navbar-item'>
+                        <span className={`tag is-capitalized ${user.role === 'admin' ? 'is-dark' : 'is-primary'}`}>{user.role}</span>
+                    </div>
                     <Link className="navbar-item" to={'/'}>Dashboard</Link>
                     <Link className="navbar-item" to={'/profile'}>Profile</Link>
                     {
