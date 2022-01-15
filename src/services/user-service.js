@@ -50,10 +50,32 @@ const logout = async () => {
     }
 }
 
+const getUsers = async () => {
+    const response = await userAxios.get()
+    if (response.status === 200) {
+        const users = response.data
+        return users
+    } else {
+        throw new Error(response)
+    }
+}
+
+const getUser = async (id) => {
+    const response = await userAxios.get(`${id}`)
+    if (response.status === 200) {
+        const user = response.data
+        return user
+    } else {
+        throw new Error(response)
+    }
+}
+
 const userService = {
     isAuthenticated,
     login,
-    logout
+    logout,
+    getUsers,
+    getUser
 }
 
 export default userService

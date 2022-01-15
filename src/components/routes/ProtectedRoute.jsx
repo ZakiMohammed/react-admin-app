@@ -8,6 +8,8 @@ import NoMatchInner from '../../pages/NoMatchInner'
 import Header from '../Header'
 import Footer from '../Footer'
 import AuthContext from '../../context/auth/AuthContext'
+import PageTitle from '../PageTitle'
+import { UserProvider } from '../../context/user/UserContext'
 
 const ProtectedRoute = () => {
 
@@ -18,30 +20,36 @@ const ProtectedRoute = () => {
             <Header />
 
             <div className="section">
-                <Routes>
-                    <Route path='/' element={<Outlet />}>
-                        <Route path='/' element={<Dashboard />} />
-                        <Route path='/profile' element={<Profile />} />
 
-                        {/* authorized routes based on role */}
-                        {
-                            user && user.role === 'admin' && (
-                                <>
-                                    <Route path='/users' element={<UserListPage />} />
-                                    <Route path='/users/:id' element={<UserPage />} />
-                                </>
-                            )
-                        }
+                <PageTitle />
 
-                        {/* force redirect */}
-                        <Route path='/dashboard' element={<Navigate replace to='/' />} />
-                        <Route path='/login' element={<Navigate replace to='/' />} />
-                        <Route path='/register' element={<Navigate replace to='/' />} />
-                        <Route path='/forgot-password' element={<Navigate replace to='/' />} />
+                <UserProvider>
+                    <Routes>
+                        <Route path='/' element={<Outlet />}>
+                            <Route path='/' element={<Dashboard />} />
+                            <Route path='/profile' element={<Profile />} />
 
-                        <Route path='*' element={<NoMatchInner />} />
-                    </Route>
-                </Routes>
+                            {/* authorized routes based on role */}
+                            {
+                                user && user.role === 'admin' && (
+                                    <>
+                                        <Route path='/users' element={<UserListPage />} />
+                                        <Route path='/users/:id' element={<UserPage />} />
+                                    </>
+                                )
+                            }
+
+                            {/* force redirect */}
+                            <Route path='/dashboard' element={<Navigate replace to='/' />} />
+                            <Route path='/login' element={<Navigate replace to='/' />} />
+                            <Route path='/register' element={<Navigate replace to='/' />} />
+                            <Route path='/forgot-password' element={<Navigate replace to='/' />} />
+
+                            <Route path='*' element={<NoMatchInner />} />
+                        </Route>
+                    </Routes>
+                </UserProvider>
+
             </div>
 
             <Footer />
