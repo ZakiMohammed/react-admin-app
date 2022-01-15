@@ -1,8 +1,10 @@
+import Banner from '../components/Banner'
+
 const Dashboard = () => {
     return (
-        <div>
-            Dashboard
-        </div>
+        <>
+            <Banner />
+        </>
     )
 }
 

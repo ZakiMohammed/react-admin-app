@@ -1,8 +1,12 @@
 const Footer = () => {
     return (
-        <div>
-            Footer
-        </div>
+        <footer className="footer">
+            <div className="content has-text-centered">
+                <p>
+                    <b className='has-text-primary'>React Admin App</b> by <a href="https://github.com/ZakiMohammed" target='_blank' rel='noreferrer'>Zaki Mohammed</a>.
+                </p>
+            </div>
+        </footer>
     )
 }
 
