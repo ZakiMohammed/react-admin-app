@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { regular, solid } from '@fortawesome/fontawesome-svg-core/import.macro'
 
 import userService from '../services/user-service'
+import Modal from '../components/Modal'
+
 
 const Login = () => {
 
@@ -12,6 +14,8 @@ const Login = () => {
 
     const [userName, setUserName] = useState('')
     const [password, setPassword] = useState('')
+    const [showModal, setShowModal] = useState(false)
+    const [messageModal, setMessageModal] = useState('')
 
     const handleSubmit = async (e) => {
         try {
@@ -21,16 +25,20 @@ const Login = () => {
             if (user) {
                 window.location = '/'
             } else {
-                alert('Invalid Credentials')
+                setMessageModal('Invalid Username or Password')
+                setShowModal(true)
             }
 
         } catch (error) {
-            console.log(error);
+            setMessageModal('Something went wrong')
+            setShowModal(true)
         }
     }
 
     return (
         <>
+            <Modal title={'Message'} message={messageModal} showModal={showModal} setShowModal={setShowModal} />
+
             <div className="card">
                 <div className="card-image is-hidden-desktop">
                     <figure className="image is-4by3">
